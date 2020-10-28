@@ -25,9 +25,18 @@ namespace BookStore.IdentityProvider
         {
             services.AddControllersWithViews();
             services.AddMvc();
+            services.AddIdentityServer()
+              .AddInMemoryIdentityResources(Configuration.GetSection("IdentityServer:IdentityResources"))
+              .AddInMemoryApiResources(Configuration.GetSection("IdentityServer:ApiResources"))
+              .AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))
+              .AddDeveloperSigningCredential()
+              .AddAspNetIdentity<ApplicationUser>();
+
+           // services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
+           //.AllowAnyMethod()
+           //.AllowAnyHeader()));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -42,9 +51,8 @@ namespace BookStore.IdentityProvider
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -2,15 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookStore.WebApi.Entities;
+using BookStore.WebApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.WebApi.Controllers
 {
-    public class BookStoreController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BookController : ControllerBase
     {
-        public IActionResult Index()
+        private IBookRepository _bookRepository;
+        public BookController(IBookRepository bookRepository)
         {
-            return View();
+            _bookRepository = bookRepository;
+        }
+
+
+        // GET: api/Book
+        [HttpGet]
+        [Authorize(Policy = "CanViewBook")]
+        public IEnumerable<Book> Get()
+        {
+            var listBooks = _bookRepository.GetAllBooks();
+            return listBooks;
+        }
+
+        // GET: api/Book/5
+        [HttpGet("{id}", Name = "Get")]
+        public Book Get(int id)
+        {
+            var book = _bookRepository.GetBookDetails(id);
+            return book;
+        }
+
+        // POST: api/Book
+        [HttpPost]
+        public void Post([FromBody] Book model)
+        {
+            _bookRepository.AddBook(model);
         }
     }
 }
