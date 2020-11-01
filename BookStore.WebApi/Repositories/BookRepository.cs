@@ -17,6 +17,7 @@ namespace BookStore.WebApi.Repositories
 
                 _context.Books.Add(new Book
                 {
+                    Id=1,
                     BookName = "Tom and Jerry",
                     Price = 123.5,
                     Author = "Unknow",
@@ -25,6 +26,7 @@ namespace BookStore.WebApi.Repositories
 
                 _context.Books.Add(new Book
                 {
+                    Id = 2,
                     BookName = "Steve Job",
                     Price = 200,
                     Author = "Unknow",
@@ -33,6 +35,7 @@ namespace BookStore.WebApi.Repositories
 
                 _context.Books.Add(new Book
                 {
+                    Id = 3,
                     BookName = "Golden Axe",
                     Price = 199,
                     Author = "David Copy and Paste",
