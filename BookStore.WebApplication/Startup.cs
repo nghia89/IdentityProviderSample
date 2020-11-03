@@ -67,16 +67,16 @@ namespace BookStore.WebApplication
                   var accessor = c.GetRequiredService<IHttpContextAccessor>();
                   var accessToken = await accessor.HttpContext.GetTokenAsync("access_token");
                   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                  client.BaseAddress = new Uri("https://localhost:44308/api/");
+                  client.BaseAddress = new Uri("https://localhost:5001/api/");
               });
 
-            //services.AddAuthorization(options =>
-            //{
-            //    //options.AddPolicy("CanViewBook", policy => policy.RequireRole("Administrator" , "View"));
+            services.AddAuthorization(options =>
+            {
+                //options.AddPolicy("CanViewBook", policy => policy.RequireRole("Administrator" , "View"));
 
-            //    options.AddPolicy("CanAddBook", policy => policy.RequireClaim("Permission", "AddBook"));
-            //    options.AddPolicy("StartedYear", policy => policy.AddRequirements(new StartedYearRequirement(2010)));
-            //});
+                options.AddPolicy("CanAddBook", policy => policy.RequireClaim("Permission", "AddBook"));
+                //options.AddPolicy("StartedYear", policy => policy.AddRequirements(new StartedYearRequirement(2010)));
+            });
             //services.AddSingleton<IAuthorizationHandler, StartedYearAuthorizationHandler>();
         }
 

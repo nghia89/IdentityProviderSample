@@ -22,7 +22,7 @@ namespace BookStore.WebApi.Controllers
 
         // GET: api/Book
         [HttpGet]
-        [Authorize(Policy = "CanViewBook")]
+        //[Authorize(Policy = "CanViewBook")]
         public IEnumerable<Book> Get()
         {
             var listBooks = _bookRepository.GetAllBooks();

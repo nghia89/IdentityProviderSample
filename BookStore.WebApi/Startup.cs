@@ -30,13 +30,13 @@ namespace BookStore.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(o => o.Filters.Add(new AuthorizeFilter()));
+            services.AddControllers();
             services.AddDistributedMemoryCache();
             services.AddAuthentication(
                 IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = "https://localhost:44331";
+                    options.Authority = "https://localhost:5000";
                     options.ApiName = "bookstore_apis";
                     options.ApiSecret = "supersecret";
                     options.EnableCaching = true;
